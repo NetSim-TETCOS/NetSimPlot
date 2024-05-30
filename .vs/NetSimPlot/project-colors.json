@@ -1,0 +1,31 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "204182ab-dae6-4179-b38c-6141f7fcec53": {
+      "ProjectGuid": "204182ab-dae6-4179-b38c-6141f7fcec53",
+      "DisplayName": "HeatMapPlot",
+      "ColorIndex": 0
+    },
+    "42e2730b-6aa6-491d-a695-561a91e974d0": {
+      "ProjectGuid": "42e2730b-6aa6-491d-a695-561a91e974d0",
+      "DisplayName": "HeatMapDataGenerator",
+      "ColorIndex": 1
+    },
+    "d8117bd8-3611-43c6-be4c-aa26c09c2034": {
+      "ProjectGuid": "d8117bd8-3611-43c6-be4c-aa26c09c2034",
+      "DisplayName": "FileCreate",
+      "ColorIndex": 2
+    },
+    "279044b0-588d-42e9-92f3-e3b098ea5856": {
+      "ProjectGuid": "279044b0-588d-42e9-92f3-e3b098ea5856",
+      "DisplayName": "NetSimPlot",
+      "ColorIndex": 3
+    }
+  },
+  "NextColorIndex": 4
+}

@@ -1,0 +1,213 @@
+﻿<UserControl x:Class="NetSimPlot.LeftPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:NetSimPlot" xmlns:wpfTool="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        
+        <Style TargetType="wpfTool:WatermarkTextBox">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontStyle" Value="Normal"/>
+            <Setter Property="FontFamily" Value="Sabor"/>
+            <Setter Property="Height" Value="25"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Tahoma"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="#FF696969"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}" x:Key="AxisTextBlock">
+            <Setter Property="Foreground" Value="#FF63C4AE"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+        </Style>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}" x:Key="HelpTextBlock">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="Foreground" Value="#FF696969"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="FontFamily" Value="Sabor"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="TextAlignment" Value="Justify"/>
+            <Setter Property="FontStyle" Value="Normal"/>
+        </Style>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}" x:Key="MiniMaxTextBlock">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="Foreground" Value="#FF999898"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="FontFamily" Value="Sabor"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="left"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="IsHitTestVisible" Value="False"/>
+            <Setter Property="Visibility" Value="Collapsed"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Foreground" Value="#FF696969"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontFamily" Value="Tahoma"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Height" Value="23"/>
+        </Style>
+    </UserControl.Resources>
+    <StackPanel x:Name="LeftMainStackPanel" Orientation="Vertical" Background="#FFFBFBFB" Margin="10,10,10,10">
+        <Rectangle Height="1"/>
+        
+        <!--#region CHECKBOX-->
+        <StackPanel Orientation="Vertical" Name="CheckBoxStackPanel">
+            <TextBlock Text="Show me" Foreground="#154095"/>
+        </StackPanel>
+        <!--#endregion-->
+        
+        <Rectangle Height="10"/>
+        
+        <!--#region PLOTSETTING-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition Width="0.6*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="30"/>
+                <RowDefinition MinHeight="30"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Plot Settings" Foreground="#154095" Grid.Row="0" Grid.ColumnSpan="2"/>
+            <TextBlock Text="Chart Title" Grid.Row="1" Grid.Column="0"/>
+            <wpfTool:WatermarkTextBox x:Name="ChartTitle" TextChanged="ChartTitle_TextChanged" Grid.Column="1" Grid.Row="1"/>
+        </Grid>
+        <!--#endregion-->
+
+        <Rectangle Height="20"/>
+        <!--#region X_AXIS-->
+        <TextBlock Text="X-Axis" Style="{StaticResource AxisTextBlock}"/>
+        <Grid x:Name="XAxisGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition Width="0.6*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="30"/>
+                <RowDefinition MinHeight="30"/>
+                <RowDefinition MinHeight="30"/>
+                <RowDefinition MinHeight="0" Height="0"/>
+                <RowDefinition MinHeight="0" Height="0"/>
+                <RowDefinition MinHeight="30"/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Grid Line" Grid.Row="0" Grid.Column="0"/>
+            <CheckBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsChecked="True" Click="XGridCheckBox_Click"/>
+
+            <TextBlock Text="Minimum" Grid.Column="0" Grid.Row="1"/>
+            <Grid Grid.Row="1" Grid.Column="1" Height="21">
+                <TextBox x:Name="minimumTextBlock" PreviewTextInput ="TextBox_OnPreviewTextInput"/>
+                <TextBlock x:Name ="MinimumTimeTextBlock" Text="Minimum time">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource  MiniMaxTextBlock}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=minimumTextBlock}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <TextBlock Text="Maximum" Grid.Row="2" Grid.Column="0" />
+            <Grid Grid.Row="2" Grid.Column="1" Height="21">
+                <TextBox x:Name="maximumTextBlock" PreviewTextInput ="TextBox_OnPreviewTextInput"/>
+                <TextBlock x:Name ="MaximumTimeTextBlock" Text="Maximum time">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource  MiniMaxTextBlock}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=maximumTextBlock}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <TextBlock Text="Avg. Win." Grid.Row="3" Grid.Column="0"  />
+            <Grid Grid.Row="3" Grid.Column="1" Height="21">
+                <TextBox x:Name="WindowTextBlock" PreviewTextInput="TextBox_OnPreviewTextInput"/>
+                <TextBlock x:Name ="AvgWindowTimeTextBlock" Text="Maximum time">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource  MiniMaxTextBlock}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=WindowTextBlock}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+
+            <TextBlock Text="To plot instantaneous throughput Default is 50ms" Grid.Row="4" Grid.Column="1"
+                       Foreground="#FF999898" FontStyle ="Italic" TextAlignment="Left" Style="{StaticResource HelpTextBlock}"/>
+
+            <Button x:Name="btnreplot" Content="Re-plot" Click="Replot_Click" FontSize="10" FontFamily="Tahoma" 
+                    Background ="Transparent" BorderBrush="Transparent" Width="50" Foreground="RoyalBlue" 
+                    HorizontalAlignment="Right" Grid.Row="5" Grid.Column="1"/>
+        </Grid>
+        <!--#endregion-->
+
+        <Rectangle Height="2"/>
+        
+        <!--#region Y_AXIS-->
+        <TextBlock Text="Y-Axis" Style="{StaticResource AxisTextBlock}"/>
+        <Grid x:Name="YAxisGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition Width="0.6*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="30"/>
+                <RowDefinition MinHeight="30"/>
+            </Grid.RowDefinitions>
+            
+            <TextBlock Text="Grid Line" Grid.Row="0" Grid.Column="0"/>
+            <CheckBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsChecked="True" Click="YGridCheckBox_Click"/>
+
+            <TextBlock Text="Range" Grid.Row="1" Grid.Column="0"/>
+            <ComboBox Grid.Row="1" Grid.Column="1" Width="160" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBoxItem Content = "Auto Range"  IsSelected="True"/>
+                <ComboBoxItem Content="Force zero in range"/>
+            </ComboBox>
+        </Grid>
+        <!--#endregion-->
+
+        <Rectangle Height="10"/>
+
+        <!--#region  Information-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="5" MaxWidth="10"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition MinHeight="12"/>
+                <RowDefinition MinHeight="12"/>
+                <RowDefinition MinHeight="12"/>
+                <RowDefinition MinHeight="12"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Style="{StaticResource HelpTextBlock}" Text="1. " />
+            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource HelpTextBlock}" Text="Zoom: Move mouse over plot and zoom in/out using mouse wheel"/>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Style="{StaticResource HelpTextBlock}" Text="2. "/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource HelpTextBlock}" Text="PAN: Move mouse over plot and PAN right/left by pressing right click continuously and moving the mouse"/>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Style="{StaticResource HelpTextBlock}" Text="3. " />
+            <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource HelpTextBlock}" Text="X-Y value: Move mouse over plot and left click to view the coordinates of any point"/>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" Style="{StaticResource HelpTextBlock}" Text="4. " />
+            <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource HelpTextBlock}" Text="Changes to color, title, zoom, axis values, etc are meant for visualization and print purposes only. These changes will not get saved when the window is closed." />
+
+        </Grid>
+        <!--#endregion-->
+    </StackPanel>
+</UserControl>
